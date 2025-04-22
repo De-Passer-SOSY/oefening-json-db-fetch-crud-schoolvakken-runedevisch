@@ -24,3 +24,30 @@ async function fetchVakken() {
         console.log("Fout bij het ophalen van vakken: ", error);
     }
 }
+
+async function addVak(){
+    let input = document.querySelector("#vakInput");
+    let nieuweNaam = input.value.trim();
+
+    if (nieuweNaam === "") {
+        alert("Vul een vaknaam in!");
+        return;
+    }
+
+    try {
+        let response = await fetch("http://localhost:5688/vakken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ naam: nieuweNaam })
+        });
+
+        if (response.ok) {
+            input.value = "";
+            fetchVakken();
+        }
+    } catch (err) {
+        console.error("Fout bij toevoegen:", err);
+    }
+}
