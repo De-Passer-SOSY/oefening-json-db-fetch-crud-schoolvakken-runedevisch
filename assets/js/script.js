@@ -65,3 +65,20 @@ async function deleteVak(id) {
         console.error("Fout bij verwijderen:", err);
     }
 }
+
+function displayVakken(vakken) {
+    let lijst = document.querySelector("#vakList");
+    lijst.innerHTML = "";
+
+    vakken.forEach(vak => {
+        let li = document.createElement("li");
+        li.textContent = vak.naam;
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "❌";
+        deleteBtn.addEventListener("click", () => deleteVak(vak.id));
+
+        li.appendChild(deleteBtn);
+        lijst.appendChild(li);
+    });
+}
